@@ -8,7 +8,7 @@
     <input id="toefl" type="text" v-model="toefl" @input="filterToefl()">
     <p v-if="feedbackToefl">Entrez un score entre 1 et 120</p>
     <div class="slidecontainer">
-      <h4 ref="sliderValue" class="sliderValue">{{slider}}</h4>
+      <h4 ref="sliderValue" class="custom-rangeslider__tooltip">{{slider}}</h4>
   <input v-model="slider" type="range" min="0" max="5" value="0" class="slider" id="myRange" @input="changeValuePosition">
 </div>
   </div>
@@ -33,7 +33,7 @@ export default class HelloWorld extends Vue {
   }
   public changeValuePosition() {
     const styleValue = this.$refs.sliderValue as HTMLElement;
-    styleValue.style.left = `${this.slider*55}px`
+    styleValue.style.left = `${this.slider*59.4+24}px`
     
   }
 
@@ -59,9 +59,42 @@ export default class HelloWorld extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 // .hello {
-//   display: flex;
-//   flex-direction: row;
+//   background-color:rgb(24, 25, 58)
 // }
+
+  .custom-rangeslider__tooltip {
+    line-height : 20px;
+    position : relative;
+    color: white;
+    // height : 20px;
+    // width : 40px;
+    display: inline;
+    background-color : #0B132B;
+    padding : 5px 14px;
+    border : 2px solid #CE3089;
+    top : -40px;
+    left : 24px;;
+    text-align : center;
+    border-radius : 3px;
+    transition-duration: 0.2s;
+    
+    &:after {
+      z-index: -1;;
+      display: block;
+      content : ' ';
+      background : #CE3089;
+      position : absolute;
+      border: 2px solid #CE3089;
+      border-top : 0; 
+      border-left : 0;
+      width: 10px;
+      height: 10px;
+      left: calc(50% - 6px);
+      bottom : -7px;
+      transform:rotate(45deg);
+    }
+  }
+
 .slidecontainer {
   margin-top: 150px;
 }
@@ -71,11 +104,13 @@ export default class HelloWorld extends Vue {
   transition-duration: 0.2s;
   // border: solid 2px black;
   // border-radius: 20px;
+  background-color: aqua;
   bottom: 40px;
   padding: 4px;
   margin-right: -22px;
   transition-duration: 0.2s;
 }
+
 .slider {
   -webkit-appearance: none;
   width: 300px;
@@ -91,18 +126,19 @@ export default class HelloWorld extends Vue {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%; 
-  background: rgb(69, 91, 190);
+  width: 2px;
+  height: 16px;
+  // border-radius: 1px; 
+  background: #CE3089;
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-  width: 20px;
+  width: 4px;
   height: 20px;
-  border-radius: 50%;
-  background: rgb(69, 91, 190);
+  border: none;
+  // border-radius: 50%;
+  background: #CE3089;
   cursor: pointer;
 }
 
@@ -180,5 +216,44 @@ export default class HelloWorld extends Vue {
       transform: translateX(100%);
     }
   }
+}
+
+/*Chrome*/
+// @media screen and (-webkit-min-device-pixel-ratio:0) {
+//     input[type='range'] {
+//       overflow: hidden;
+//         -webkit-appearance: none;
+//     }
+    
+//     input[type='range']::-webkit-slider-runnable-track {
+//       height: 10px;
+//       -webkit-appearance: none;
+//       color: #13bba4;
+//       margin-top: -1px;
+//     }
+    
+//     input[type='range']::-webkit-slider-thumb {
+//       width: 10px;
+//       -webkit-appearance: none;
+//       height: 20px;
+//       cursor: ew-resize;
+//       background: #c03b3b;
+//       box-shadow: -80px 0 0 80px #43e5f7;
+//     }
+
+// }
+/** FF*/
+input[type="range"]::-moz-range-progress {
+  background-color: #CE3089; 
+}
+input[type="range"]::-moz-range-track {  
+  background-color: #000000;
+}
+/* IE*/
+input[type="range"]::-ms-fill-lower {
+  background-color: #CE3089; 
+}
+input[type="range"]::-ms-fill-upper {  
+  background-color: #000000;
 }
 </style>
