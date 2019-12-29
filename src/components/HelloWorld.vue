@@ -1,11 +1,17 @@
 <template>
   <div class="hello">
     <!-- <h1>{{ toeic }}</h1> -->
-    <input id="toeic" class="skinny" type="text" v-model="toeic" @input="filterToeic()">
+    <input
+      id="toeic"
+      class="skinny"
+      type="text"
+      v-model="toeic"
+      @input="filterToeic()"
+    />
     <label for="toeic">TOEIC : </label>
     <p v-if="feedbackToeic">Entrez un score entre 1 et 990</p>
     <label for="toefl">TOEFL : </label>
-    <input id="toefl" type="text" v-model="toefl" @input="filterToefl()">
+    <input id="toefl" type="text" v-model="toefl" @input="filterToefl()" />
     <p v-if="feedbackToefl">Entrez un score entre 1 et 120</p>
     <div class="slidecontainer">
       <vue-slider v-model="slider" :marks="marks" :min="0" :max="5" :width="300" :useKeyboard="true">
@@ -34,18 +40,17 @@ export default class HelloWorld extends Vue {
   public feedbackToeic = false;
   public feedbackToefl = false;
   public slider = 0;
-  private toeicRegex = /^([1-9]|[1-9]\d|[1-8]\d\d|9[1-8]\d|99[0])$/
-  private toeflRegex = /^([1-9]|[1-9]\d|1[0-1]\d|12[0])$/
+  private toeicRegex = /^([1-9]|[1-9]\d|[1-8]\d\d|9[1-8]\d|99[0])$/;
+  private toeflRegex = /^([1-9]|[1-9]\d|1[0-1]\d|12[0])$/;
   public data() {
     return {
-      toeic:'',
-      toefl:''
-    }
+      toeic: "",
+      toefl: ""
+    };
   }
   public changeValuePosition() {
     const styleValue = this.$refs.sliderValue as HTMLElement;
-    styleValue.style.left = `${this.slider*59.4+24}px`
-    
+    styleValue.style.left = `${this.slider * 59.4 + 24}px`;
   }
 
   public filterToeic() {
@@ -53,15 +58,15 @@ export default class HelloWorld extends Vue {
       this.$data.toeic = this.$data.toeic.slice(0, -1);
       this.feedbackToeic = true;
     } else {
-      this.feedbackToeic = false
+      this.feedbackToeic = false;
     }
   }
-    public filterToefl() {
+  public filterToefl() {
     if (!this.toeflRegex.test(this.$data.toefl)) {
       this.$data.toefl = this.$data.toefl.slice(0, -1);
-      this.feedbackToefl = true
+      this.feedbackToefl = true;
     } else {
-      this.feedbackToefl = false
+      this.feedbackToefl = false;
     }
   }
 }
@@ -72,17 +77,18 @@ export default class HelloWorld extends Vue {
 // .hello {
 //   background-color:rgb(24, 25, 58)
 // }
-  .custom-step {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    box-shadow: 0 0 0 3px #ccc;
-    background-color: #fff;
-  }
-  .custom-step.active {
-    box-shadow: 0 0 0 3px #3498db;
-    background-color: #3498db;
-  }
+.custom-step {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #ccc;
+  background-color: #fff;
+}
+.custom-step.active {
+  box-shadow: 0 0 0 3px #3498db;
+  background-color: #3498db;
+}
+
 
 // .custom-rangeslider__tooltip {
 //   line-height : 20px;
@@ -176,8 +182,8 @@ export default class HelloWorld extends Vue {
   border-radius: 3px;
   outline: 0;
   text-indent: 80px; // Arbitrary.
-  transition: all .3s ease-in-out;
-  
+  transition: all 0.3s ease-in-out;
+
   &::-webkit-input-placeholder {
     color: #efefef;
     text-indent: 0;
@@ -193,7 +199,7 @@ export default class HelloWorld extends Vue {
     left: -230px;
     padding: 10px 15px;
     text-shadow: 0 1px 0 rgba(35, 90, 192, 0.4);
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
     overflow: hidden;
@@ -205,7 +211,7 @@ export default class HelloWorld extends Vue {
       right: 0;
       left: 0;
       z-index: -1;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
     &:before {
       // Skinny bit here
@@ -227,13 +233,13 @@ export default class HelloWorld extends Vue {
   color: rgb(49, 89, 197);
   text-indent: 0;
   background: #fff;
-  
+
   &::-webkit-input-placeholder {
     color: #aaa;
   }
   + label {
     transform: translateX(-100%);
-    
+
     &:after {
       transform: translateX(100%);
     }
@@ -246,14 +252,14 @@ export default class HelloWorld extends Vue {
 //       overflow: hidden;
 //         -webkit-appearance: none;
 //     }
-    
+
 //     input[type='range']::-webkit-slider-runnable-track {
 //       height: 10px;
 //       -webkit-appearance: none;
 //       color: #13bba4;
 //       margin-top: -1px;
 //     }
-    
+
 //     input[type='range']::-webkit-slider-thumb {
 //       width: 10px;
 //       -webkit-appearance: none;
@@ -266,16 +272,16 @@ export default class HelloWorld extends Vue {
 // }
 /** FF*/
 input[type="range"]::-moz-range-progress {
-  background-color: #CE3089; 
+  background-color: #ce3089;
 }
-input[type="range"]::-moz-range-track {  
+input[type="range"]::-moz-range-track {
   background-color: #000000;
 }
 /* IE*/
 input[type="range"]::-ms-fill-lower {
-  background-color: #CE3089; 
+  background-color: #ce3089;
 }
-input[type="range"]::-ms-fill-upper {  
+input[type="range"]::-ms-fill-upper {
   background-color: #000000;
 }
 </style>
