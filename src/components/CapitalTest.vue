@@ -87,8 +87,8 @@ export default class CapitalTest extends Vue {
   public data() {
     return {
       capital: "",
-      value: 20,
-      marks: [20, 50, 100, 197]
+      value: 10,
+      marks: [10, 20, 50, 100, 197]
     };
   }
 
