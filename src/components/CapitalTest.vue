@@ -82,6 +82,7 @@ export default class CapitalTest extends Vue {
   public countdown = 4;
   public disallowInput = true;
   public malus = 1;
+  public result = 0;
 
   public data() {
     return {
@@ -96,13 +97,6 @@ export default class CapitalTest extends Vue {
     this.listOfCapitals = list.filter((x, index) => index % 2 === 1);
     this.randomNumber = Math.floor(Math.random() * this.listOfCountries.length);
     this.randomCountry = this.listOfCountries[this.randomNumber];
-    console.log(
-      this.listOfCountries[1].normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
-      "y"
-    );
-    const a = "élo-alà-Êmin ça";
-    const b = a.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    console.log(b.replace(/[^A-zÀ-ÿ]/gi, ""), "hyp");
   }
 
   public switchAccent() {
@@ -111,6 +105,7 @@ export default class CapitalTest extends Vue {
   }
 
   public goNext() {
+    this.testEnd();
     this.badAnswers.unshift(
       `${this.listOfCountries[this.randomNumber]} : ${
         this.listOfCapitals[this.randomNumber]
@@ -137,8 +132,23 @@ export default class CapitalTest extends Vue {
     } est la première lettre`;
   }
 
+  public testEnd() {
+    if (this.goodAnswers.length + this.badAnswers.length === this.$data.value) {
+      this.result = this.timer;
+    }
+  }
+
   public increaseTimer() {
-    setInterval(() => (this.timer += 1 * this.malus), 1000);
+    const a = setInterval(() => {
+      this.timer += 1 * this.malus;
+      if (
+        this.goodAnswers.length + this.badAnswers.length ===
+        this.$data.value
+      ) {
+        clearInterval(a);
+        this.disallowInput = true;
+      }
+    }, 1000);
     this.disallowInput = false;
   }
 
@@ -148,6 +158,7 @@ export default class CapitalTest extends Vue {
   }
 
   public testIfTrue() {
+    this.testEnd();
     let inputCapitale = this.$data.capital.toLowerCase();
     let trueCapitale = this.listOfCapitals[this.randomNumber].toLowerCase();
     if (this.acceptAccents) {
