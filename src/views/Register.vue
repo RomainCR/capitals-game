@@ -1,12 +1,13 @@
 <template>
   <div>
-    <form @submit.prevent="register">
+    <div class="error" v-if="error">{{ error.message }}</div>
+    <form @submit.prevent="createUser">
       Register
       <div class="email">
         <input type="email" placeholder="email" v-model="email" />
       </div>
       <div class="password">
-        <input type="password" placeholder="password" />
+        <input type="password" placeholder="password" v-model="password" />
       </div>
       <button type="submit">S'inscrire</button>
     </form>
@@ -14,47 +15,41 @@
 </template>
 
 <script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/antd.css";
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import { Component, Prop, Vue } from "vue-property-decorator";
 
-export default class Register extends Vue {
-  public email = "email";
-  public password = "pass";
+@Component({})
+export default class HelloWorld extends Vue {
   public error!: string;
-
-  public mounted() {
-    console.log(this.email, "data");
+  public data() {
+    return {
+      email: "",
+      password: "",
+      error: this.error
+    };
   }
-
-  public register(): void {
-    console.log(this.email);
+  public created() {
+    console.log(firebase);
+  }
+  public createUser() {
+    console.log(this.$data.password, "pass");
     firebase
       .auth()
-      .createUserWithEmailAndPassword(this.email, this.password)
-      .then(() => {
-        console.log("here");
-        this.$router.replace({ name: "about" });
+      .createUserWithEmailAndPassword(this.$data.email, this.$data.password)
+      .catch(error => {
+        this.error = error;
+        console.log(error.code, ":", error.message);
       })
-      .catch(error => (this.error = error));
+      .then(() => {
+        console.log("OK");
+        this.$router.replace({ name: "about" });
+      });
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.error {
-  color: red;
-  font-size: 18px;
-}
-input {
-  width: 400px;
-  padding: 30px;
-  margin: 20px;
-  font-size: 21px;
-}
-button {
-  width: 400px;
-  height: 75px;
-  font-size: 100%;
-}
-</style>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss"></style>

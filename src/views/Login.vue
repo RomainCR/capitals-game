@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="error" v-if="error">{{ error.message }}</div>
-    <form @submit.prevent="pressed">
+    <form @submit.prevent="createUser">
       Login
       <div class="email">
-        <input type="email" v-model="email" placeholder="email" />
+        <input type="email" placeholder="email" v-model="email" />
       </div>
       <div class="password">
-        <input type="password" v-model="password" placeholder="password" />
+        <input type="password" placeholder="password" v-model="password" />
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">Se connecter</button>
     </form>
   </div>
 </template>

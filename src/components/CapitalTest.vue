@@ -33,6 +33,7 @@
       id="capital"
       type="text"
       class="inputCap"
+      :placeholder="capitalPlaceholder"
       v-model="capital"
       @input="testIfTrue()"
     />
@@ -78,6 +79,7 @@ export default class CapitalTest extends Vue {
   public acceptHyphens = false;
   public lengthHint = "Indice de longueur";
   public firstLetter = "Première lettre";
+  public capitalPlaceholder = "Capitale";
   public timer = 0;
   public countdown = 4;
   public disallowInput = true;
@@ -87,6 +89,7 @@ export default class CapitalTest extends Vue {
   public data() {
     return {
       capital: "",
+      actualCapital: "",
       value: 10,
       marks: [10, 20, 50, 100, 197]
     };
@@ -118,18 +121,43 @@ export default class CapitalTest extends Vue {
     this.$data.capital = "";
     this.lengthHint = "Indice de longueur";
     this.firstLetter = "Première lettre";
+    this.capitalPlaceholder = "Capitale";
   }
 
   public showLengthHint() {
     this.lengthHint = `${
       this.listOfCapitals[this.randomNumber].length
     } lettres`;
+    if (
+      this.capitalPlaceholder !== "Capitale" &&
+      this.capitalPlaceholder[0] !== "*"
+    ) {
+      this.capitalPlaceholder = this.listOfCapitals[this.randomNumber].replace(
+        /\B[A-z]/g,
+        "*"
+      );
+    } else {
+      this.capitalPlaceholder = this.listOfCapitals[this.randomNumber].replace(
+        /[A-z]/g,
+        "*"
+      );
+    }
   }
 
   public showFirstLetter() {
     this.firstLetter = `${
       this.listOfCapitals[this.randomNumber][0]
     } est la première lettre`;
+    if (
+      this.capitalPlaceholder !== "Capitale" &&
+      this.capitalPlaceholder[0] === "*"
+    ) {
+      this.capitalPlaceholder =
+        this.listOfCapitals[this.randomNumber][0] +
+        this.capitalPlaceholder.slice(1);
+    } else {
+      this.capitalPlaceholder = this.listOfCapitals[this.randomNumber][0];
+    }
   }
 
   public testEnd() {
@@ -188,6 +216,7 @@ export default class CapitalTest extends Vue {
       this.$data.capital = "";
       this.lengthHint = "Indice de longueur";
       this.firstLetter = "Première lettre";
+      this.capitalPlaceholder = "Capitale";
     } else {
       this.feedback = "mauvaise capital";
     }
