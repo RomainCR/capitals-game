@@ -150,7 +150,7 @@ export default class CapitalTest extends Vue {
     } est la première lettre`;
     if (
       this.capitalPlaceholder !== "Capitale" &&
-      this.capitalPlaceholder[0] === "*"
+      this.capitalPlaceholder[1] === "*"
     ) {
       this.capitalPlaceholder =
         this.listOfCapitals[this.randomNumber][0] +

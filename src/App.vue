@@ -6,9 +6,32 @@
       <router-link to="/register">Register</router-link> |
       <router-link to="/login">Login</router-link>
     </div>
+
     <router-view />
   </div>
 </template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from "vue-property-decorator";
+import * as firebase from "firebase/app";
+import "firebase/auth";
+
+@Component({})
+export default class App extends Vue {
+  public playerConnected = "" as null | string;
+
+  public mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log(user.email);
+        this.playerConnected = user.email;
+      } else {
+        console.log("No user sign in");
+      }
+    });
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
