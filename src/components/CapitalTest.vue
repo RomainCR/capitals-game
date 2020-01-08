@@ -4,7 +4,9 @@
       <h1 class="countdown flex center">{{ countdown }}</h1>
     </div>
     <h1>Trouvez la bonne capitale</h1>
-    <h3>Pays restants : {{ listOfCountries.length }}</h3>
+    <h3>
+      Pays restants : {{ value - badAnswers.length - goodAnswers.length }}
+    </h3>
     <div class="flex center">
       <h4>Nombre de pays souhaités</h4>
       <vue-slider
@@ -109,6 +111,7 @@ export default class CapitalTest extends Vue {
 
   public goNext() {
     this.testEnd();
+    this.timer += 5;
     this.badAnswers.unshift(
       `${this.listOfCountries[this.randomNumber]} : ${
         this.listOfCapitals[this.randomNumber]
@@ -125,6 +128,7 @@ export default class CapitalTest extends Vue {
   }
 
   public showLengthHint() {
+    this.$data.capital = "";
     this.lengthHint = `${
       this.listOfCapitals[this.randomNumber].length
     } lettres`;
@@ -145,6 +149,7 @@ export default class CapitalTest extends Vue {
   }
 
   public showFirstLetter() {
+    this.$data.capital = "";
     this.firstLetter = `${
       this.listOfCapitals[this.randomNumber][0]
     } est la première lettre`;
