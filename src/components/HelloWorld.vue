@@ -14,21 +14,39 @@
     <input id="toefl" type="text" v-model="toefl" @input="filterToefl()" />
     <p v-if="feedbackToefl">Entrez un score entre 1 et 120</p>
     <div class="slidecontainer">
-      <vue-slider v-model="slider" :marks="marks" :min="0" :max="5" :width="300" :useKeyboard="true">
-      <template v-slot:step="{ label, active }">
-        <div :class="['custom-step', { active }]"></div>
-      </template>
-    </vue-slider>
-      <h4 ref="sliderValue" class="custom-rangeslider__tooltip">{{slider}}</h4>
-  <input v-model="slider" type="range" min="0" max="5" value="0" class="slider" id="myRange" @input="changeValuePosition">
-</div>
+      <vue-slider
+        v-model="slider"
+        :marks="marks"
+        :min="0"
+        :max="5"
+        :width="300"
+        :useKeyboard="true"
+      >
+        <template v-slot:step="{ label, active }">
+          <div :class="['custom-step', { active }]"></div>
+        </template>
+      </vue-slider>
+      <h4 ref="sliderValue" class="custom-rangeslider__tooltip">
+        {{ slider }}
+      </h4>
+      <input
+        v-model="slider"
+        type="range"
+        min="0"
+        max="5"
+        value="0"
+        class="slider"
+        id="myRange"
+        @input="changeValuePosition"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import VueSlider from 'vue-slider-component';
-import 'vue-slider-component/theme/antd.css';
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/antd.css";
 
 @Component({
   components: {
@@ -89,7 +107,6 @@ export default class HelloWorld extends Vue {
   background-color: #3498db;
 }
 
-
 // .custom-rangeslider__tooltip {
 //   line-height : 20px;
 //   position : relative;
@@ -113,7 +130,7 @@ export default class HelloWorld extends Vue {
 //     background: #CE3089;
 //     position: absolute;
 //     border: 2px solid #CE3089;
-//     border-top: 0; 
+//     border-top: 0;
 //     border-left: 0;
 //     width: 10px;
 //     height: 10px;
@@ -143,7 +160,7 @@ export default class HelloWorld extends Vue {
 //   -webkit-appearance: none;
 //   width: 300px;
 //   height: 6px;
-//   border-radius: 5px;  
+//   border-radius: 5px;
 //   background: #ffffff;
 //   outline: none;
 //   opacity: 0.7;
@@ -156,7 +173,7 @@ export default class HelloWorld extends Vue {
 //   appearance: none;
 //   width: 6px;
 //   height: 16px;
-//   // border-radius: 1px; 
+//   // border-radius: 1px;
 //   background: #CE3089;
 //   cursor: pointer;
 // }

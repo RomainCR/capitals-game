@@ -42,16 +42,24 @@ import VueSlider from "vue-slider-component";
 import "vue-slider-component/theme/antd.css";
 import * as firebase from "firebase/app";
 import "firebase/auth";
+// import { db } from "../firebaseConfig";
 
 @Component({})
 export default class HelloWorld extends Vue {
   public error!: string;
+  public db = firebase.firestore();
   public data() {
     return {
       email: "",
       password: "",
       error: this.error
     };
+  }
+  public createUserInDb(userEmail: string): void {
+    this.db
+      .collection("users")
+      .doc()
+      .set({ email: this.$data.email });
   }
 
   public createUser() {

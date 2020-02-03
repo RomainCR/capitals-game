@@ -58,6 +58,8 @@ export default class HelloWorld2 extends Vue {
   background-color: #fff;
 }
 .custom-step.active {
+  width: 100%;
+  height: 100%;
   box-shadow: 0 0 0 3px #3498db;
   background-color: #3498db;
 }
@@ -68,7 +70,7 @@ export default class HelloWorld2 extends Vue {
   bottom: -8px;
   border-radius: 0;
   background-color: pink;
-  transition: all 1s;
+  transition: all 0.4s;
 }
 .custom-dot:hover {
   // transform: rotateZ(45deg);
